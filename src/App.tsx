@@ -6,6 +6,8 @@ function App() {
   const [email, setEmail] = useState('');
   const [schooling, setSchooling] = useState('Médio');
   const [resume, setResume] = useState('');
+  const [terms, setTerms] = useState(false);
+  const [error, setError] = useState(false);
 
   function resetForm() {
     setName('');
@@ -16,10 +18,14 @@ function App() {
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    alert(
-      `Nome: ${name}\nemail: ${email}\nEscolaridade:${schooling}\nExperiências: ${resume}`
-    )
-    resetForm();
+    if (terms) {
+      alert(
+        `Nome: ${name}\nemail: ${email}\nEscolaridade:${schooling}\nExperiências: ${resume}`
+      );
+      resetForm();
+    } else {
+      setError(true);
+    }
   }
 
   return (
@@ -57,10 +63,26 @@ function App() {
             onChange={({ target }) => setResume(target.value)}
           />
         </label>
+        <label>
+          Aceito os termos e condições!
+          <input
+            type="checkbok"
+            checked={ terms }
+            onChange={() => setTerms((prevTerms) => !prevTerms)}
+          />
+
+        </label>
         <button>Enviar</button>
       </form>
+      {error && (
+        <h4>Você precisa aceitar os termos e condições para enviar o currículo! 😅</h4>
+      )}
     </>
   );
 }
 
 export default App;
+
+
+// *  criar uma renderização condicional: se o formulário foi submetido sem o checkbox marcado, uma mensagem de erro será mostrada.
+// é preciso realizar a validação no handleSubmit: se o checkbox estiver assinalado, ou seja, se o valor do estado terms for verdadeiro, o currículo será cadastrado normalmente. Em caso negativo, transformará o estado error em true, e a mensagem de erro será renderizada.
