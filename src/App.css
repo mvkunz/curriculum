@@ -1,0 +1,53 @@
+* {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  background-color: rgb(44, 43, 43);
+  color: white;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: 80vw;
+}
+
+input,
+textarea {
+  background-color: lightgray;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  margin: 15px;
+  color: black;
+}
+
+.row {
+  display: flex;
+}
+
+select {
+  background-color: lightgray;
+  border-radius: 10px;
+  border: none;
+  color: black;
+  padding: 5px;
+  margin: 10px;
+}
+
+textarea {
+  width: 100%;
+}
+
+button {
+  background-color: lightgray;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  color: black;
+  cursor: pointer;
+  width: 100px;
+  align-self: center;
+}
+
+h4 {
+  color: white;
+}
