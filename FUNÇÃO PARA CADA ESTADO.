@@ -1,43 +1,27 @@
-import { useState } from 'react';
-import './App.css'
-
+MODELO ANTERIOR:
 function App() {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [schooling, setSchooling] = useState('Médio');
+  const [resume, setResume] = useState('');
   const [terms, setTerms] = useState(false);
   const [error, setError] = useState(false);
-  const [formInfo, setFormInfo] = useState({
-    name: '',
-    email: '',
-    schooling: 'Médio',
-    resume: '',
-  })
-
-  function handleChange(event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) {
-    const { name, value } = event.target;
-    setFormInfo({
-      ...formInfo,
-      [name]: value,
-    });
-  }
-// Utilizando handleChange, quando o input email, por exemplo, sofrer alteração, os valores que não são do input email se manterão, enquanto o próprio será alterado!
+ 
 
   function resetForm() {
-    setFormInfo({
-      name: '',
-      email: '',
-      schooling: 'Médio',
-      resume: '',
-    });
+    setName('');
+    setEmail('');
+    setSchooling('');
+    setResume('');
   } // função para apagar os inputs.
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (terms) {
-      resetForm();
-      setTerms(false);
-      setError(false);
       alert(
-        `Nome: ${formInfo.name}\nemail: ${formInfo.email}\nEscolaridade:${formInfo.schooling}\nExperiências: ${formInfo.resume}`
+        `Nome: ${name}\nemail: ${email}\nEscolaridade:${schooling}\nExperiências: ${resume}`
       );
+      resetForm();
     } else {
       setError(true);
     }
@@ -49,22 +33,22 @@ function App() {
         <label>
           Nome
           <input
-            value={ formInfo.name }
-            onChange={ handleChange }
+            value={ name }
+            onChange={({ target }) => setName(target.value)}
           />
         </label>
         <label>
           E-mail
           <input
-            value={ formInfo.email }
-            onChange={ handleChange }
+            value={ email }
+            onChange={({ target }) => setEmail(target.value)}
           />
         </label>
         <label>
           Escolaridade
           <select
-            value={ formInfo.schooling }
-            onChange={ handleChange }
+            value={ schooling }
+            onChange={({ target }) => setSchooling(target.value)}
           >
             <option value="Médio">Médio</option>
             <option value="Superior">Superior</option>
@@ -74,8 +58,8 @@ function App() {
         <label>
           Resumo das experiências
           <textarea
-            value={ formInfo.resume }
-            onChange={ handleChange }
+            value={ resume }
+            onChange={({ target }) => setResume(target.value)}
           />
         </label>
         <label>
@@ -95,9 +79,6 @@ function App() {
     </>
   );
 }
-
-export default App;
-
 
 // *  criar uma renderização condicional: se o formulário foi submetido sem o checkbox marcado, uma mensagem de erro será mostrada.
 // é preciso realizar a validação no handleSubmit: se o checkbox estiver assinalado, ou seja, se o valor do estado terms for verdadeiro, o currículo será cadastrado normalmente. Em caso negativo, transformará o estado error em true, e a mensagem de erro será renderizada.
